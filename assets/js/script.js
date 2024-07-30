@@ -1,3 +1,11 @@
+// Add datepicker to modal
+$( function() {
+    $( "#taskDueDate" ).datepicker({
+      changeMonth: true,
+      changeYear: true
+    });
+  } );
+
 // Retrieve tasks and nextId from localStorage
 let taskList = JSON.parse(localStorage.getItem("tasks"));
 let nextId = JSON.parse(localStorage.getItem("nextId"));
