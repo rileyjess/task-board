@@ -152,8 +152,26 @@ function handleDeleteTask(event){
 
 }
 
-// Todo: create a function to handle dropping a task into a new status lane
+// A function to handle dropping a task into a new status lane
 function handleDrop(event, ui) {
+
+  let tasks = taskList;
+
+  // Retrieve the task id
+  const taskId = ui.draggable[0].dataset.taskId;
+
+  // Find the id of the lane that the card was dropped into
+  const newTaskStatus = event.target.id;
+
+  for (let task of tasks) {
+    // Update the task status
+    if (task.id === taskId) {
+      task.status = newTaskStatus;
+    }
+  }
+  // Save the new task to localStorage
+  localStorage.setItem('tasks', JSON.stringify(tasks));
+  renderTaskList();
 
 }
 
