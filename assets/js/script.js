@@ -14,41 +14,13 @@ function getTasksFromStorage() {
     }
   
     return tasks;
-  }
+}
 
 // Generate a unique task id
-function generateTaskId(event) {
-    event.preventDefault();
+function generateTaskId() {
+  let nextId = crypto.randomUUID();
 
-    // Read user input from the form
-    const taskTitle = taskTitleInputEl.val().trim();
-    const taskDescription = taskDescriptionInputEl.val().trim();
-    const taskDueDate = taskDueDateInputEl.val();
-  
-    const newTask = {
-      // Generate a unique id with crypto WebAPI
-      nextId: crypto.randomUUID(),
-      name: taskTitle,
-      description: taskDescription,
-      dueDate: taskDueDate,
-      status: 'to-do',
-    };
-  
-    // New tasks will be pushed into an array
-    const tasks = getTasksFromStorage();
-    tasks.push(newTask);
-  
-    // Store the new tasks array in localStorage
-    saveTasksToStorage(tasks);
-  
-    // The data will be displayed on the screen
-    displayTaskData();
-  
-    // Clear form inputs
-    taskTitleInputEl.val('');
-    taskDescriptionInputEl.val('');
-    taskDueDateInputEl.val('');
-  
+  return nextId;
 }
 
 // Create a task card
@@ -100,7 +72,7 @@ function renderTaskList() {
   const doneList = $('#done-cards');
   doneList.empty();
 
-  // Create task cards for eah status
+  // Create task cards for each status
   for (let task of tasks) {
     if (task.status === 'to-do') {
       todoList.append(createTaskCard(task));
@@ -129,7 +101,36 @@ function renderTaskList() {
 
 // Todo: create a function to handle adding a new task
 function handleAddTask(event){
+  event.preventDefault();
 
+  // Read user input from the form
+  const taskTitle = taskTitleInputEl.val().trim();
+  const taskDescription = taskDescriptionInputEl.val().trim();
+  const taskDueDate = taskDueDateInputEl.val();
+
+  const newTask = {
+    // Generate a unique id with crypto WebAPI
+    uniqueId: nextId,
+    name: taskTitle,
+    description: taskDescription,
+    dueDate: taskDueDate,
+    status: 'to-do',
+  };
+
+  // New tasks will be pushed into an array
+  const tasks = getTasksFromStorage();
+  tasks.push(newTask);
+
+  // Store the new tasks array in localStorage
+  localStorage.setItem('tasks', JSON.stringify(tasks));
+
+  // The data will be displayed on the screen
+  renderTaskList();
+
+  // Clear form inputs
+  taskTitleInputEl.val('');
+  taskDescriptionInputEl.val('');
+  taskDueDateInputEl.val('');
 }
 
 // Todo: create a function to handle deleting a task
