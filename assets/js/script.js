@@ -109,7 +109,6 @@ function handleAddTask(event){
   const taskDueDate = taskDueDateInputEl.val();
 
   const newTask = {
-    // Generate a unique id with crypto WebAPI
     uniqueId: nextId,
     name: taskTitle,
     description: taskDescription,
@@ -133,8 +132,23 @@ function handleAddTask(event){
   taskDueDateInputEl.val('');
 }
 
-// Todo: create a function to handle deleting a task
+// A function to handle deleting a task
 function handleDeleteTask(event){
+  const taskId = $(this).attr('task-project-id');
+  const tasks = getTasksFromStorage();
+
+  // Remove tasks from the array. 
+  tasks.forEach((task) => {
+    if (task.id === taskId) {
+      tasks.splice(tasks.indexOf(task), 1);
+    }
+  });
+
+  // Save the tasks to localStorage
+  localStorage.setItem('tasks', JSON.stringify(tasks));
+
+  // Display the tasks on the screen
+  renderTaskList();
 
 }
 
