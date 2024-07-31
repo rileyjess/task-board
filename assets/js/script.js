@@ -16,7 +16,7 @@ function getTasksFromStorage() {
     return tasks;
   }
 
-// Todo: create a function to generate a unique task id
+// Generate a unique task id
 function generateTaskId(event) {
     event.preventDefault();
 
@@ -51,7 +51,7 @@ function generateTaskId(event) {
   
 }
 
-// Todo: create a function to create a task card
+// Create a task card
 function createTaskCard(task) {
     const taskCard = $('<div>')
      .addClass('card task-card draggable my-3')
@@ -86,8 +86,44 @@ function createTaskCard(task) {
   return taskCard;
 }
 
-// Todo: create a function to render the task list and make cards draggable
+// Render the task list and make cards draggable
 function renderTaskList() {
+  const tasks = getTasksFromStorage();
+
+  // Clear task cards out of all lanes
+  const todoList = $('#todo-cards');
+  todoList.empty();
+
+  const inProgressList = $('#in-progress-cards');
+  inProgressList.empty();
+
+  const doneList = $('#done-cards');
+  doneList.empty();
+
+  // Create task cards for eah status
+  for (let task of tasks) {
+    if (task.status === 'to-do') {
+      todoList.append(createTaskCard(task));
+    } else if (task.status === 'in-progress') {
+      inProgressList.append(createTaskCard(task));
+    } else if (task.status === 'done') {
+      doneList.append(createTaskCard(task));
+    }
+  }
+
+  // Make task cards draggable with JQuery
+  $('.draggable').draggable({
+    opacity: 0.7,
+    zIndex: 100,
+    helper: function (e) {
+      const original = $(e.target).hasClass('ui-draggable')
+        ? $(e.target)
+        : $(e.target).closest('.ui-draggable');
+      return original.clone().css({
+        width: original.outerWidth(),
+      });
+    },
+  });
 
 }
 
