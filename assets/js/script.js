@@ -2,7 +2,7 @@
 let taskList = JSON.parse(localStorage.getItem("tasks"));
 let nextId = JSON.parse(localStorage.getItem("nextId"));
 const addTaskBtn = $('#add-task-form');
-const deleteTaskBtn = $('#delete-task-btn');
+const deleteTaskBtn = $('.delete-task-btn');
 const taskTitleInputEl = $('#taskTitle');
 const taskDueDateInputEl = $('#taskDueDate');
 const taskDescriptionInputEl = $('#taskDescription');
@@ -24,7 +24,7 @@ function createTaskCard(task) {
   const cardDescription = $('<p>').addClass('card-text').text(task.description);
   const cardDueDate = $('<p>').addClass('card-text').text(task.dueDate);
   const cardDeleteBtn = $('<button>')
-    .addClass('btn btn-danger delete task-delete-btn')
+    .addClass('btn btn-danger delete delete-task-btn')
     .text('Delete')
     .attr('data-task-id', task.id);
   cardDeleteBtn.on('click', handleDeleteTask);
@@ -127,7 +127,7 @@ function handleAddTask(event) {
 
 // A function to handle deleting a task
 function handleDeleteTask(event) {
-  const taskId = $(this).attr('task-project-id');
+  const taskId = $(this).attr('data-task-id');
   const tasks = taskList;
 
   // Remove tasks from the array. 
@@ -136,6 +136,7 @@ function handleDeleteTask(event) {
       tasks.splice(tasks.indexOf(task), 1);
     }
   });
+  
 
   // Save the tasks to localStorage
   localStorage.setItem('tasks', JSON.stringify(tasks));
@@ -177,7 +178,7 @@ $(document).ready(function () {
   // Add event listeners
   addTaskBtn.on('submit', handleAddTask);
 
-  addTaskBtn.on ('submit', function() {
+  addTaskBtn.on('submit', function() {
     $('#formModal').modal('hide');
     return false;
   })
