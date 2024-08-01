@@ -7,18 +7,6 @@ const taskTitleInputEl = $('#taskTitle');
 const taskDueDateInputEl = $('#taskDueDate');
 const taskDescriptionInputEl = $('#taskDescription');
 
-// If no tasks were retrieved, tasks will go into an empty array
-function getTasksFromStorage() {
-
-  let tasks = taskList;
-
-  if (!taskList) {
-    tasks = [];
-  }
-
-  return tasks;
-}
-
 // Generate a unique task id
 function generateTaskId() {
   let nextId = crypto.randomUUID();
@@ -64,7 +52,7 @@ function createTaskCard(task) {
 
 // Render the task list and make cards draggable
 function renderTaskList() {
-  const tasks = getTasksFromStorage();
+  const tasks = taskList;
 
   // Clear task cards out of all lanes
   const todoList = $('#todo-cards');
@@ -107,6 +95,8 @@ function renderTaskList() {
 function handleAddTask(event) {
   event.preventDefault();
 
+  let tasks = taskList;
+
   // Read user input from the form
   const taskTitle = taskTitleInputEl.val().trim();
   const taskDescription = taskDescriptionInputEl.val().trim();
@@ -121,7 +111,6 @@ function handleAddTask(event) {
   };
 
   // New tasks will be pushed into an array
-  const tasks = getTasksFromStorage();
   tasks.push(newTask);
 
   // Store the new tasks array in localStorage
@@ -139,7 +128,7 @@ function handleAddTask(event) {
 // A function to handle deleting a task
 function handleDeleteTask(event) {
   const taskId = $(this).attr('task-project-id');
-  const tasks = getTasksFromStorage();
+  const tasks = taskList;
 
   // Remove tasks from the array. 
   tasks.forEach((task) => {
@@ -186,13 +175,13 @@ $(document).ready(function () {
   renderTaskList();
 
   // Add event listeners
-  // addTaskBtn.on('submit', handleAddTask);
-  addTaskBtn.submit( function() {
-    handleAddTask();
+  addTaskBtn.on('submit', handleAddTask);
 
+  addTaskBtn.on ('submit', function() {
     $('#formModal').modal('hide');
     return false;
   })
+
   deleteTaskBtn.on('click', handleDeleteTask);
 
   // Initialize the date picker
