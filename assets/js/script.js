@@ -103,7 +103,7 @@ function handleAddTask(event) {
   const taskDueDate = taskDueDateInputEl.val();
 
   const newTask = {
-    uniqueId: generateTaskId(),
+    id: generateTaskId(),
     title: taskTitle,
     description: taskDescription,
     dueDate: taskDueDate,
