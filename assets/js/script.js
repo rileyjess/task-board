@@ -91,7 +91,7 @@ function renderTaskList() {
 
 }
 
-// Todo: create a function to handle adding a new task
+// A function to handle adding a new task
 function handleAddTask(event) {
   event.preventDefault();
 
@@ -136,7 +136,6 @@ function handleDeleteTask(event) {
       tasks.splice(tasks.indexOf(task), 1);
     }
   });
-  
 
   // Save the tasks to localStorage
   localStorage.setItem('tasks', JSON.stringify(tasks));
@@ -169,13 +168,13 @@ function handleDrop(event, ui) {
 
 }
 
-// Todo: when the page loads, render the task list, add event listeners, make lanes droppable, and make the due date field a date picker
+// When the page loads, render the task list, add event listeners, make lanes droppable, and make the due date field a date picker
 $(document).ready(function () {
 
   // Render the task list
   renderTaskList();
 
-  // Add event listeners
+  // Event listeners
   addTaskBtn.on('submit', handleAddTask);
 
   addTaskBtn.on('submit', function() {
@@ -184,17 +183,16 @@ $(document).ready(function () {
   })
 
   deleteTaskBtn.on('click', handleDeleteTask);
-
+  
+  // Make the lanes droppable
+  $('.lane').droppable({
+    accept: '.draggable',
+    drop: handleDrop,
+  });
+  
   // Initialize the date picker
   $("#taskDueDate").datepicker({
     changeMonth: true,
     changeYear: true
   });
-
-  // The lanes are droppable
-  $('.lane').droppable({
-    accept: '.draggable',
-    drop: handleDrop,
-  });
-
 });
