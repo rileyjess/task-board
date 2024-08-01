@@ -10,6 +10,8 @@ const taskDescriptionInputEl = $('#taskDescription');
 // If no tasks were retrieved, tasks will go into an empty array
 function getTasksFromStorage() {
 
+  let tasks = taskList;
+
   if (!taskList) {
     tasks = [];
   }
@@ -111,8 +113,8 @@ function handleAddTask(event) {
   const taskDueDate = taskDueDateInputEl.val();
 
   const newTask = {
-    uniqueId: nextId,
-    name: taskTitle,
+    uniqueId: generateTaskId(),
+    title: taskTitle,
     description: taskDescription,
     dueDate: taskDueDate,
     status: 'to-do',
@@ -184,7 +186,13 @@ $(document).ready(function () {
   renderTaskList();
 
   // Add event listeners
-  addTaskBtn.on('submit', handleAddTask);
+  // addTaskBtn.on('submit', handleAddTask);
+  addTaskBtn.submit( function() {
+    handleAddTask();
+
+    $('#formModal').modal('hide');
+    return false;
+  })
   deleteTaskBtn.on('click', handleDeleteTask);
 
   // Initialize the date picker
