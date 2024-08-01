@@ -34,7 +34,7 @@
             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
           </div>
           <div class="modal-body">
-            <form>
+            <form id="add-task-form">
               <div class="row">
               <div class="col-6">
                 <label for="taskTitle" class="form-label">Task Title</label>
@@ -49,11 +49,11 @@
                 <label for="taskDescription" class="form-label">Task Description</label>
                 <textarea class="form-control" id="taskDescription"></textarea>
               </div>
+            </div>
+            <div class="modal-footer d-flex justify-content-center">
+              <button type="submit" class="btn btn-primary bg-success">Add Task</button>
+            </div>
             </form>
-          </div>
-          <div class="modal-footer d-flex justify-content-center">
-            <button type="button" class="btn btn-primary bg-success">Add Task</button>
-          </div>
         </div>
       </div>
     </div>

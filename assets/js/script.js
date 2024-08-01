@@ -1,7 +1,8 @@
 // Retrieve tasks and nextId from localStorage
 let taskList = JSON.parse(localStorage.getItem("tasks"));
 let nextId = JSON.parse(localStorage.getItem("nextId"));
-let addTaskBtn = $('#btn-success');
+const addTaskBtn = $('#add-task-form');
+const deleteTaskBtn = $('#delete-task-btn');
 const taskTitleInputEl = $('#taskTitle');
 const taskDueDateInputEl = $('#taskDueDate');
 const taskDescriptionInputEl = $('#taskDescription');
@@ -33,7 +34,7 @@ function createTaskCard(task) {
     const cardDescription = $('<p>').addClass('card-text').text(task.description);
     const cardDueDate = $('<p>').addClass('card-text').text(task.dueDate);
     const cardDeleteBtn = $('<button>')
-     .addClass('btn btn-danger delete')
+     .addClass('btn btn-danger delete task-delete-btn')
      .text('Delete')
      .attr('data-task-id', task.id);
     cardDeleteBtn.on('click', handleDeleteTask);
@@ -182,7 +183,8 @@ $(document).ready(function () {
   renderTaskList();
 
   // Add event listeners
-
+  addTaskBtn.on('submit', handleAddTask);
+  deleteTaskBtn.on('click', handleDeleteTask);
 
   // Initialize the date picker
   $( "#taskDueDate" ).datepicker({
