@@ -10,11 +10,11 @@ const taskDescriptionInputEl = $('#taskDescription');
 // If no tasks were retrieved, tasks will go into an empty array
 function getTasksFromStorage() {
 
-    if (!taskList) {
-      tasks = [];
-    }
-  
-    return tasks;
+  if (!taskList) {
+    tasks = [];
+  }
+
+  return tasks;
 }
 
 // Generate a unique task id
@@ -26,18 +26,18 @@ function generateTaskId() {
 
 // Create a task card
 function createTaskCard(task) {
-    const taskCard = $('<div>')
-     .addClass('card task-card draggable my-3')
-     .attr('data-task-id', task.id);
-    const cardHeader = $('<div>').addClass('card-header h4').text(task.title);
-    const cardBody = $('<div>').addClass('card-body');
-    const cardDescription = $('<p>').addClass('card-text').text(task.description);
-    const cardDueDate = $('<p>').addClass('card-text').text(task.dueDate);
-    const cardDeleteBtn = $('<button>')
-     .addClass('btn btn-danger delete task-delete-btn')
-     .text('Delete')
-     .attr('data-task-id', task.id);
-    cardDeleteBtn.on('click', handleDeleteTask);
+  const taskCard = $('<div>')
+    .addClass('card task-card draggable my-3')
+    .attr('data-task-id', task.id);
+  const cardHeader = $('<div>').addClass('card-header h4').text(task.title);
+  const cardBody = $('<div>').addClass('card-body');
+  const cardDescription = $('<p>').addClass('card-text').text(task.description);
+  const cardDueDate = $('<p>').addClass('card-text').text(task.dueDate);
+  const cardDeleteBtn = $('<button>')
+    .addClass('btn btn-danger delete task-delete-btn')
+    .text('Delete')
+    .attr('data-task-id', task.id);
+  cardDeleteBtn.on('click', handleDeleteTask);
 
   // If the task is not marked as done, background color styles will be applied based on the due date
   if (task.dueDate && task.status !== 'done') {
@@ -50,7 +50,8 @@ function createTaskCard(task) {
     } else if (now.isAfter(taskDueDate)) {
       taskCard.addClass('bg-danger text-white');
       cardDeleteBtn.addClass('border-light');
-    }}
+    }
+  }
 
   // All the elements just created will be appended together
   cardBody.append(cardDescription, cardDueDate, cardDeleteBtn);
@@ -101,7 +102,7 @@ function renderTaskList() {
 }
 
 // Todo: create a function to handle adding a new task
-function handleAddTask(event){
+function handleAddTask(event) {
   event.preventDefault();
 
   // Read user input from the form
@@ -134,7 +135,7 @@ function handleAddTask(event){
 }
 
 // A function to handle deleting a task
-function handleDeleteTask(event){
+function handleDeleteTask(event) {
   const taskId = $(this).attr('task-project-id');
   const tasks = getTasksFromStorage();
 
@@ -187,15 +188,15 @@ $(document).ready(function () {
   deleteTaskBtn.on('click', handleDeleteTask);
 
   // Initialize the date picker
-  $( "#taskDueDate" ).datepicker({
-      changeMonth: true,
-      changeYear: true
+  $("#taskDueDate").datepicker({
+    changeMonth: true,
+    changeYear: true
   });
 
   // The lanes are droppable
   $('.lane').droppable({
-     accept: '.draggable',
-     drop: handleDrop,
+    accept: '.draggable',
+    drop: handleDrop,
   });
-  
+
 });
