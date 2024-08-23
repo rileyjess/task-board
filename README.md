@@ -16,10 +16,11 @@ Acceptance Criteria:
 - When the page is refreshed, the saved tasks persist
 
 ## Website Screenshot
+![Task Board Screenshot](https://github.com/user-attachments/assets/736e0b45-ca78-48d8-b463-a0143e070a60)
 
 
 ## Deployed Website URL
-
+https://rileyjess.github.io/task-board/
 
 ## Credits
 Starter code in the HTML, CSS, and JavaScript files were copied from: https://github.com/coding-boot-camp/musical-happiness
