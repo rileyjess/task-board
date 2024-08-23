@@ -2,9 +2,9 @@
 
 ## Description
 This website is a task board where new tasks can be added and reorganized to measure the progress of a project. When the "Add Task" button is clicked, the user can add a task title, due date, and description. A task card will be generated that will be color coded to indicate whether the deadline is near or overdue: 
-    - If the deadline is in the future, the task card will be white. 
-    - If the deadline is today, the task card will be yellow. 
-    - If the deadline has past, the task card will be red. 
+- If the deadline is in the future, the task card will be white.
+- If the deadline is today, the task card will be yellow.
+- If the deadline has past, the task card will be red. 
 
 Acceptance Criteria:
 - When the user opens the task board, the list of project tasks is displayed in columns representing the task progress state (Not Yet Started, In Progress, Completed)
